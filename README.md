@@ -8,9 +8,9 @@ an anti-NSFW software
 
 *methods*
   The current methods of acomplishing this goal contains 3 main parts. 
-    -collect- take screenshot of current activity
-    -analyze- analyze screenshot to check if the user has NSFW content on their screen
-    -action- take action if porn is detected
+    *collect* take screenshot of current activity
+    *analyze* analyze screenshot to check if the user has NSFW content on their screen
+    *action* take action if porn is detected
 
 
   -collect-
