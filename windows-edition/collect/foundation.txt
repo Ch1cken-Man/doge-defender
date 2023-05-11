@@ -1,0 +1,5 @@
+This folder should contain all the code to take a screenshot of the users current screen and save it within a temporary file
+this should be done in the following increments:
+when program is first downloaded- 1 photo/min
+after one day of non activity - .5 photo/min
+after one bonk - 2 photo/min
