@@ -1,0 +1,13 @@
+The action to be done can be one or more of the following:
+
+-causing windows to display the BSOD
+-exit all applications
+-open a blank window covering up where porn is detected on screen
+-play an animation of cheems slicing the contents of the monitor
+-sent a notification to a list of contacts relating to who owns the system and say that the user was caught looking at smut
+-turn the volume up on the system and play a prerecorded message or rickroll
+-change the password on the system or encrypt the data and only allow it to be unlocked with a password sent to a close contact of the installer
+-uninstall the browser and force the user to use an unintuitive browser
+-launch a cpu eater task that slows down the computer and all of its resources tremendously
+-uninstall wifi drivers and let them have some fun installing them back without internet
+-
