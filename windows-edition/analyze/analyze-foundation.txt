@@ -1,0 +1,12 @@
+purpose of this program
+
+screenshot image --> the program --> contains porn? y/n		where? rectangle with corners x1,y1	x2,y2
+
+to do this there are a few methods that may be fesable:
+
+name		description				fesability score
+
+
+neural net	small locally run neural network	2/10			(will be difficult to make one that won't slow down the system it runs on)  (may be able to work on high end machines or vm's that are run on servers, it ould be difficult to make one that works on all low end systems)
+
+cloud AI	cloud hosted AI image anyzer		5/10			(has the vulnerability that once disconnected from the internet it won't be able to work) (may be able to work with chromebooks)
