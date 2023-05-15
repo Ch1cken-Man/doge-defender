@@ -3,53 +3,46 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 
 
 public class Main {
 
-	public static void captureScreen(String fileName) {
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-  		Rectangle screenRectangle = new Rectangle(screenSize);
-  		
-try{Robot robot = new Robot();}
-catch(IOException e){
-System.out.println("error in making Robot");}
-
-  		BufferedImage image = robot.createScreenCapture(screenRectangle);
-		File file = new File(fileName);
-  		ImageIO.write(image, "png", file);
-		
-		System.out.println("the screenshot is: "+ file.getPath());
-}
-
-
-
 	public static void main(String[] args) {
-		System.out.println("Hello World");
-		String screenshotName = "temp-screenshot.png";	
-		captureScreen(screenshotName);
-	}
+		//System.out.println("Hello World");
+        Instant newInstant = new Instant();
+        System.out.println(newInstant.captureScreen()); 
+		}
 	
 
 }
 
-/*
-public class screenInstant() {
-	String screenshot = "temp-screenshot.png";
+public class Instant{
+    private static String fileName = "temp-screenshot.png";
 
-	public static void captureScreen(String fileName) throws Exception {
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-  		Rectangle screenRectangle = new Rectangle(screenSize);
-  		Robot robot = new Robot();
-  		BufferedImage image = robot.createScreenCapture(screenRectangle);
-		File file = new File(fileName);
-  		ImageIO.write(image, "png", file);
-  		LOG.debug("A screenshot is captured to: " + file.getPath());
+ 	public static String captureScreen() {
+//        String fileName = "temp-screenshot.png";
+ 	    String returnValue = "";	
+        try{
+	    	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+  	    	Rectangle screenRectangle = new Rectangle(screenSize);
+           //keypress robot
+            Robot robot = new Robot();
+  		    BufferedImage image = robot.createScreenCapture(screenRectangle);
+		    File file = new File(fileName);
+  		    ImageIO.write(image, "png", file);
+            returnValue = "successfully took screenshot and saved it to "+fileName;
+        }
+
+        catch(IOException e){
+           returnValue+="  error in the i/o stack   ";
+        }
+
+        catch(AWTException e){
+            returnValue+="  error in making the robot   ";
+        }
+        
+        return returnValue;
+    }   
+
 }
 
-
-
-}
-*/
