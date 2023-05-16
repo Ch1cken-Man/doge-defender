@@ -19,7 +19,7 @@ public class Collect {
 */
 
 
-
+//this is the instant class, I will paste it in the main java file and I might edit it and not update it here further
 public class Instant{
     private static String fileName = "temp-screenshot.png";
 

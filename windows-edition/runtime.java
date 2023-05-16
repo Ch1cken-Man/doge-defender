@@ -1,10 +1,18 @@
-import collect.Instant;
+//timer imports
 import java.util.Timer;
 import java.util.TimerTask;
 
+//screenshot imports
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+
 public class Main {
     public static void main(String[] args) {
-        //public Timer("runtime-timer",true); 
+        
         Timer timer = new Timer();
          
         // Helper class extends TimerTask
@@ -20,12 +28,71 @@ public class Main {
     }
 }
 
+
+
+
+
+
+//SCREENSHOT**********************SCREENSHOT*************SCREENSHOT**********
+
+public class Instant{
+    private static String fileName = "temp-screenshot.png";
+    
+    public static boolean isPorn = false;    
+
+ 	public static String captureScreen() 
+    {
+ 	   
+        String returnValue = "";	
+        try{
+	    	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+  	    	Rectangle screenRectangle = new Rectangle(screenSize);
+           //keypress robot
+            Robot robot = new Robot();
+  		    BufferedImage image = robot.createScreenCapture(screenRectangle);
+		    File file = new File(fileName);
+  		    ImageIO.write(image, "png", file);
+            returnValue = "successfully took screenshot and saved it to "+fileName;
+        }
+
+        catch(IOException e){
+           returnValue+="  error in the i/o stack   ";
+        }
+
+        catch(AWTException e){
+            returnValue+="  error in making the robot   ";
+        }
+        
+        return returnValue;
+    }   
+
+    public static boolean checkIsPorn(String photoFileName)
+    {
+    //this will run the input file into some sort of checking program and return true or false.
+    //currently this is just a stand in until I program it properly.
+    boolean decision = false;
+    isPorn = decision; 
+
+    return decision;
+    }
+
+
+}
+
+
+
+
+
+//TIMER**********TIMER***********TIMER*****
 class TimerRuntime extends TimerTask
 {
     public void run()
     {
         Instant thisInstant = new Instant();
         System.out.println(thisInstant.captureScreen());
+        
+        System.out.println("the porn checker program was ran and it says that "+thisInstant.checkIsPorn( "temp-screenshot.png")+" the screenshot contains porn");
+
+
     }
 } 
-
