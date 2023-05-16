@@ -1,11 +1,12 @@
+package collect;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-
-public class Main {
+/*
+public class Collect {
 
 	public static void main(String[] args) {
 		//System.out.println("Hello World");
@@ -15,6 +16,9 @@ public class Main {
 	
 
 }
+*/
+
+
 
 public class Instant{
     private static String fileName = "temp-screenshot.png";
