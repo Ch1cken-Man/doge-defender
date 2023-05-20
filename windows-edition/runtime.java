@@ -9,6 +9,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+//random import
+import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
@@ -24,7 +26,7 @@ public class Main {
          */
          
         timer.schedule(task, 200, 10000); //start at .2 seconds after code runs, and wait 10 seconds between running it. 
- 
+         
     }
 }
 
@@ -36,11 +38,15 @@ public class Main {
 //SCREENSHOT**********************SCREENSHOT*************SCREENSHOT**********
 
 public class Instant{
-    private static String fileName = "temp-screenshot.png";
+    public String fileName;
     
-    public static boolean isPorn = false;    
+    public boolean isPorn;    
+    public Instant(){
+        fileName = "temp-screenshot.png";
+        isPorn = false;
 
- 	public static String captureScreen() 
+}
+ 	public String captureScreen() 
     {
  	   
         String returnValue = "";	
@@ -66,19 +72,34 @@ public class Instant{
         return returnValue;
     }   
 
-    public static boolean checkIsPorn(String photoFileName)
+    public boolean checkIsPornRandom(String photoFileName)
     {
     //this will run the input file into some sort of checking program and return true or false.
     //currently this is just a stand in until I program it properly.
-    boolean decision = false;
-    isPorn = decision; 
+    
+        boolean decision;
+        Random rd = new Random(); 
+        decision =rd.nextBoolean();
+   
 
-    return decision;
+    
+        isPorn = decision; 
+        return decision; 
     }
+
+
 
 
 }
 
+public class action{
+    public static void actionDisplayCondensendingText(){
+       System.out.println("you've been really bad****************\n********************\n**************************\n**********************\n");
+
+}
+
+
+}
 
 
 
@@ -90,8 +111,14 @@ class TimerRuntime extends TimerTask
     {
         Instant thisInstant = new Instant();
         System.out.println(thisInstant.captureScreen());
+        boolean currentScreenshotContainsPorn = thisInstant.checkIsPornRandom("temp-screenshot.png");
         
-        System.out.println("the porn checker program was ran and it says that "+thisInstant.checkIsPorn( "temp-screenshot.png")+" the screenshot contains porn");
+        if(currentScreenshotContainsPorn){
+        //do the action phase
+        action.actionDisplayCondensendingText();
+        //increase the interval that the checker would run after the action is completed
+} 
+        System.out.println("the porn checker program was ran and it says that "+String.valueOf(currentScreenshotContainsPorn)+" the screenshot contains porn");
 
 
     }
