@@ -11,29 +11,42 @@ import java.io.IOException;
 
 //random import
 import java.util.Random;
-
+public static int globalInterval;
 public class Main {
     public static void main(String[] args) {
+        interval = helper.getInterval(); 
+        Timer screenshotTimer = new Timer();
+         
+        TimerTask task = new TimerTask()  {     
         
-        Timer timer = new Timer();
          
-        // Helper class extends TimerTask
-        TimerTask task = new TimerRuntime();
-         
-        /*
-         *  Schedule() method calls for timer class.
-         *  void schedule(TimerTask task, Date firstTime, long intervals inbetween)
-         */
-         
-        timer.schedule(task, 200, 10000); //start at .2 seconds after code runs, and wait 10 seconds between running it. 
-         
+        timer.schedule(task, 200, interval);  
     }
 }
+public class myTimer extends TimerTask {
+    public void run(){
+
+        Instant thisInstant = new Instant();
+        System.out.println(thisInstant.captureScreen());
+        boolean currentScreenshotContainsPorn = thisInstant.checkIsPornRandom("temp-screenshot.png");
+        
+        if(currentScreenshotContainsPorn)
+        {
+        //do the action phase
+        action.actionDisplayCondensendingText();
+        //increase the interval that the checker would run after the action is completed
+        } 
+        else
+        {
+        System.out.println("nothing bad was found");
+        }
+    }
+ 
 
 
 
 
-
+}
 
 //SCREENSHOT**********************SCREENSHOT*************SCREENSHOT**********
 
@@ -74,52 +87,57 @@ public class Instant{
 
     public boolean checkIsPornRandom(String photoFileName)
     {
-    //this will run the input file into some sort of checking program and return true or false.
-    //currently this is just a stand in until I program it properly.
-    
+    //randomly says if the screenshot contains porno 
         boolean decision;
         Random rd = new Random(); 
         decision =rd.nextBoolean();
-   
-
     
         isPorn = decision; 
         return decision; 
     }
 
 
-
-
 }
+
 
 public class action{
-    public static void actionDisplayCondensendingText(){
+    public static void actionDisplayCondensendingText()
+    {
        System.out.println("you've been really bad****************\n********************\n**************************\n**********************\n");
 
-}
-
-
-}
-
-
-
-
-//TIMER**********TIMER***********TIMER*****
-class TimerRuntime extends TimerTask
-{
-    public void run()
-    {
-        Instant thisInstant = new Instant();
-        System.out.println(thisInstant.captureScreen());
-        boolean currentScreenshotContainsPorn = thisInstant.checkIsPornRandom("temp-screenshot.png");
-        
-        if(currentScreenshotContainsPorn){
-        //do the action phase
-        action.actionDisplayCondensendingText();
-        //increase the interval that the checker would run after the action is completed
-} 
-        System.out.println("the porn checker program was ran and it says that "+String.valueOf(currentScreenshotContainsPorn)+" the screenshot contains porn");
-
-
     }
-} 
+    
+
+}
+public class helper{
+    public static int getInterval() throws IOException {
+        final File file = new File("/interval.txt");
+
+        int firstBootInterval = 200;    // .2 second start time, goes to interval3 initally.
+        int interval1 = 10000;          // 10s for 30min after violation
+        int interval2 = 30000;          // 30s for 3 hours after interval1
+        int interval3 = 120000;         // 120s for 8 hours after interval2
+        int interval4 = 300000;         // 300s interval until next violation
+
+        try (final DataInputStream dis = new DataInputStream(new FileInputStream(file))) {
+            currentInterval = dis.readInt();
+            System.out.println("Reading int from file: " + currentInterval);
+            globalInterval = currentInterval;
+        }
+        catch(IOException){ //this runs when there is not already a file made and sets it to the first boot interval
+            System.out.println("the file that contains the interval has an error");
+        }
+    }
+    public static void changeInterval(int newInterval) throws IOException{
+        final File file = newFile("/interval.txt");
+
+        try(final DataOutputStream dos = new DataOutputStream(new FileOutputStream(file))) {
+            dos.writeInt(newInterval);
+            System.out.println("the file was edited properly");
+        }
+        catch(IOException){
+            System.out.println("there was an error in editing the file");
+        }
+    }
+
+}
