@@ -43,7 +43,9 @@ public class myTimer extends TimerTask {
         Instant thisInstant = new Instant();
         System.out.println(thisInstant.captureScreen());
         boolean currentScreenshotContainsPorn = thisInstant.checkIsPornRandom("temp-screenshot.png");
-        
+
+        int timeSinceIncident = Integer.parseInt(fileHandler.readFile(timeFileName)); 
+
         if(currentScreenshotContainsPorn)
         {
             //do the action phase
@@ -62,19 +64,21 @@ public class myTimer extends TimerTask {
             System.out.println("nothing bad was found");
             return false;
         }
-        return false;
     }
 
     public void run(){
         String timeFileName = "/newtxt.txt";
 
-        int timeSinceIncident = fileHandler.makeAndReadFile(timeFileName);  
+        String intervalStateFile = "/intervalState.txt";
+
+        int intervalState = Integer.parseInt(fileHandler.makeAndReadFile(intervalStateFile));
+        int timeSinceIncident = Integer.parseInt(fileHandler.makeAndReadFile(timeFileName));  
         //interval shortly after incident
         //interval slowly after incident (that day)
         //default interval and a day after incident
         //long term "sleep" interval for if no activity was found for a while
         
-        int sleepinterval3 = 660480003;         // 300s (5 min) interval until next violation
+        int sleepInterval3 = 660480003;         // 300s (5 min) interval until next violation
 
         int defaultInterval2 = 604800000;         // 120s (2 min) for 24-168 hours after interval2
 
@@ -82,7 +86,7 @@ public class myTimer extends TimerTask {
         int intervalFollowingIncident0 = 1800000;          // 10s for 0-30min after violation
          
 
-        int intervalState = 0;
+//        int intervalState = 0;
 
         if(timeSinceIncident < intervalFollowingIncident0){//interval 0
         intervalState = 0; 
@@ -91,36 +95,43 @@ public class myTimer extends TimerTask {
         intervalState = 1;
         }
         else if(timeSinceIncident < defaultInterval2){//interval 2
-        intervalState = 2
+        intervalState = 2;
         }
         else if(timeSinceIncident < sleepInterval3){// sleep interval
-        intervalState = 3
+        intervalState = 3;
         }
 
 
 
 
-//I know I can move them up there but I already have moved them down here so here we go.
+//I know this is redundant but it may be helpful to seperate them in the future
 
-        if(intervalState==0){
-         
+        if(intervalState==0 && timeSinceIncident%10==0){//10s interval
+            if(takeAndAnalyzeScreenshot(timeFileName)){
+                timeSinceIncident=0;
+            }
         } 
-        else if(intervalState==1){
-        
+        else if(intervalState==1 && timeSinceIncident%30==0){//30s interval
+             if(takeAndAnalyzeScreenshot(timeFileName)){
+                timeSinceIncident=0;
+            }
+         
         }
-        else if(intervalState==2){
-
+        else if(intervalState==2 && timeSinceIncident%120==0){//120s interval
+            if(takeAndAnalyzeScreenshot(timeFileName)){
+                timeSinceIncident=0;
+            }
+ 
         }
-        else if(intervalState==3){
-
+        else if(intervalState==3 && timeSinceIncident%300==0){//5min interval
+            if(takeAndAnalyzeScreenshot(timeFileName)){
+                timeSinceIncident=0;
+            }
+ 
         }
-
-
-        if(timeSinceIncident==sleepInterval) 
-        {
-            if(
-            takeAndAnalyzeScreenshot(timeFileName);   
-             
+        timeSinceIncident+=1;
+        fileHandler.writeToFile(timeFileName,timeSinceIncident);
+        fileHandler.writeToFile(intervalStateFile, intervalState); 
 
 }
 
