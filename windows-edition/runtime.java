@@ -1,28 +1,13 @@
+//I need to get the system time to check when to actually run the code
+//I need to seperate the code checking time
+//I need to seperate the code that runs the program and updates the state
+//I need to seperate the p-checker into its own program. 
+
+//all this seperation is so I can do compartamentalized testing. that is my next step.
 //timer imports
 import java.util.Timer;
 import java.util.TimerTask;
-
-//screenshot imports
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-//random import
-import java.util.Random;
-
-//file reading imports
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
-//file writing imports
-import java.io.IOException;
-import java.io.FileWriter;
-//file making imports
-import java.io.File;
-import java.io.IOException;
-
+import dogepackage.Instant; 
 
 public class Main {
     public static void main(String[] args) {
@@ -140,56 +125,7 @@ public class myTimer extends TimerTask {
 
 
 
-//SCREENSHOT**********************SCREENSHOT*************SCREENSHOT**********
 
-public class Instant{
-    public String fileName;
-    
-    public boolean isPorn;    
-    public Instant(){
-        fileName = "temp-screenshot.png";
-        isPorn = false;
-
-}
- 	public String captureScreen() 
-    {
- 	   
-        String returnValue = "";	
-        try{
-	    	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-  	    	Rectangle screenRectangle = new Rectangle(screenSize);
-           //keypress robot
-            Robot robot = new Robot();
-  		    BufferedImage image = robot.createScreenCapture(screenRectangle);
-		    File file = new File(fileName);
-  		    ImageIO.write(image, "png", file);
-            returnValue = "successfully took screenshot and saved it to "+fileName;
-        }
-
-        catch(IOException e){
-           returnValue+="  error in the i/o stack   ";
-        }
-
-        catch(AWTException e){
-            returnValue+="  error in making the robot   ";
-        }
-        
-        return returnValue;
-    }   
-
-    public boolean checkIsPornRandom(String photoFileName)
-    {
-    //randomly says if the screenshot contains porno 
-        boolean decision;
-        Random rd = new Random(); 
-        decision =rd.nextBoolean();
-    
-        isPorn = decision; 
-        return decision; 
-    }
-
-
-}
 
 
 public class action{
@@ -201,58 +137,7 @@ public class action{
     
 
 }
-public class fileHandler{
-    public static String readFile(String theFileName){
-        String data = "0";
-        try 
-        {
-            File myObj = new File(theFileName);
-            Scanner myReader = new Scanner(myObj);
-            while (myReader.hasNextLine()) 
-            {
-                data = myReader.nextLine();
-                System.out.println(data);
-            }
-            myReader.close();
-            return data;
-        }       
-        catch (FileNotFoundException e) {
-            System.out.println("An error occurred. in reading the file.");
-            e.printStackTrace();
-        }
-        return "failed to read file";
-    }
-    public static void writeToFile(String theFileName, int data) {
-        try {
-            FileWriter myWriter = new FileWriter(theFileName);
-            myWriter.write(data);
-            myWriter.close();
-            System.out.println("Successfully wrote to the file.");
-        } 
-        catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
-    }
-    public static String makeAndReadFile(String theFileName) {
-        try {
-            File myObj = new File(theFileName);
-            if (myObj.createNewFile()) {
-                System.out.println("File created: " + myObj.getName());
-                return "-1"; //denote that the file was created and needs writing to
-            } 
-            else { //file already exists - run this code
-                System.out.println("File already exists. passing already existing value");
-                return readFile(theFileName); 
-            }
-        } 
-        catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
-        return "error 404";
-    }
-}
+
 /*
     public static void writeToFile(String theFilename, int data) throws IOException {
         final File file = new File(theFilename);
@@ -305,12 +190,12 @@ public class fileHandler{
     public static void changeInterval(int newInterval) throws IOException{
         final File file = newFile("/interval.txt");
 
-        try(final DataOutputStream dos = new DataOutputStream(new FileOutputStream(file))) {
-            dos.writeInt(newInterval);
-            System.out.println("the file was edited properly");
+        try(final dataoutputstream dos = new dataoutputstream(new fileoutputstream(file))) {
+            dos.writeint(newinterval);
+            system.out.println("the file was edited properly");
         }
-        catch(IOException){
-            System.out.println("there was an error in editing the file");
+        catch(ioexception){
+            system.out.println("there was an error in editing the file");
         }
     }
 */
